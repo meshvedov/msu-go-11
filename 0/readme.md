@@ -4,4 +4,6 @@
 
 https://www.coursera.org/learn/golang-webservices-1?utm_source=mipt&utm_medium=institution&utm_campaign=gitlab_post_mrg 
 
+https://www.coursera.org/learn/golang-webservices-2?utm_source=mipt&utm_medium=institution&utm_campaign=gitlab_post_mrg 
+
 Там есть и оцениваемые задания, и форум с поддержкой, и сертификат об окончании.
