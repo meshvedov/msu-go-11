@@ -38,3 +38,42 @@ func TestCurrentQuarter(t *testing.T) {
 		}
 	}
 }
+
+type Calendar struct {
+	month   string
+	quarter int
+}
+
+func NewCalendar(data time.Time) Calendar {
+	switch m := data.Month(); m {
+	case 1:
+		return Calendar{"01", 1}
+	case 2:
+		return Calendar{"02", 1}
+	case 3:
+		return Calendar{"03", 1}
+	case 4:
+		return Calendar{"04", 2}
+	case 5:
+		return Calendar{"05", 2}
+	case 6:
+		return Calendar{"06", 2}
+	case 7:
+		return Calendar{"07", 3}
+	case 8:
+		return Calendar{"08", 3}
+	case 9:
+		return Calendar{"09", 3}
+	case 10:
+		return Calendar{"10", 4}
+	case 11:
+		return Calendar{"11", 4}
+	case 12:
+		return Calendar{"12", 4}
+	}
+	return Calendar{"00", 0}
+}
+
+func (cal Calendar) CurrentQuarter() int {
+	return cal.quarter
+}
