@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+	"strings"
+)
 
 type memoizeFunction func(int, ...int) interface{}
 
@@ -11,11 +15,43 @@ var romanForDecimal memoizeFunction
 //TODO Write memoization function
 
 func memoize(function memoizeFunction) memoizeFunction {
-	return function
+	cache := make(map[string]interface{})
+	return func(x int, xs ...int) interface{} {
+		key := fmt.Sprint(x)
+		for _, i := range xs {
+			key += fmt.Sprintf(",%d", i)
+		}
+		if value, found := cache[key]; found {
+			return value
+		}
+		value := function(x, xs...)
+		cache[key] = value
+		return value
+	}
 }
 
 // TODO обернуть функции fibonacci и roman в memoize
 func init() {
+	fibonacci = memoize(func(i int, i2 ...int) interface{} {
+		if i <= 0 || i == 1 {
+			return i
+		}
+		return fibonacci(i-2).(int) + fibonacci(i-1).(int)
+	})
+
+	desimals := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+	romans := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+	romanForDecimal = memoize(func(i int, i2 ...int) interface{} {
+		var buffer bytes.Buffer
+		for i, desimal := range desimals {
+			remainder := i / desimal
+			i %= desimal
+			if remainder > 0 {
+				buffer.WriteString(strings.Repeat(romans[i], remainder))
+			}
+		}
+		return buffer.String()
+	})
 }
 
 func main() {

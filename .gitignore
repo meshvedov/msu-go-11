@@ -4,3 +4,4 @@
 4/06_bot/bin
 4/06_bot/pkg
 .vagrant
+*.code-workspace
